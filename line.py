@@ -3,12 +3,15 @@ from pygame.locals import *
 import pygame
 import sys
 import os
+import waitkey
 
 def draw_line(screen,p1,p2):
   (x1,y1)=p1
   (x2,y2)=p2
-  dx,dy =x2-x1 if x2>x1 else x1-x2  ,  y2-y1 if y2>y1 else y1-y2
-  sx,sy = 1    if x2>x1 else -1     ,   1    if y2>y1 else -1
+  dx =x2-x1 if x2>x1 else x1-x2
+  dy =y2-y1 if y2>y1 else y1-y2
+  sx = 1    if x2>x1 else -1
+  sy = 1    if y2>y1 else -1
   if ( dx >= dy ):
     e = -dx
     for i in range( dx+1 ):
@@ -31,15 +34,6 @@ def draw_line(screen,p1,p2):
 def set(screen,p):
   screen.set_at(p,(255,255,255))
 
-def waitkey():
-    while True:
-        for event in pygame.event.get():
-            if event.type == QUIT:
-                sys.exit(0)
-            if event.type == KEYDOWN:  # キーを押したとき
-                k=pygame.key.name(event.key)
-                return(k)
-
 def main():
     pygame.init()    # Pygameを初期化
     screen = pygame.display.set_mode((200,200))    # 200x200の画面を作成
@@ -54,7 +48,7 @@ def main():
         draw_line(screen,(200,y),(100,100))
 
     pygame.display.update()
-    key=waitkey()
+    key=waitkey.waitkey()
     pygame.quit()
     sys.exit()
 
